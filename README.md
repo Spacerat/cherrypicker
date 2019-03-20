@@ -76,7 +76,7 @@ Let's see what that branch looks like:
 
 ## Cherrypicking a range of commits into a branch
 
-Cherrypicker will resolve branch specs such as `HEAD~1..HEAD` on your _current branch_ to cherry-pick them into the target branch.
+Cherrypicker will resolve branch specs such as `HEAD~1..HEAD` on your _current branch_, so that they can be cherrypicked into the target branch.
 
     cherrypicker> cherrypicker HEAD~1..HEAD joe/myfeature --mock --push
     Currently on master
