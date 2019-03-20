@@ -130,3 +130,5 @@ Now reset the feature branch to contain this updated version of the change:
     /usr/local/bin/git push --force
     /usr/local/bin/git checkout master
     cherrypicker>
+
+And you can see the result [here](https://github.com/evenco/cherrypicker/blob/joe/myfeature/myfeature)
