@@ -20,7 +20,7 @@ Cherrypick the last two commits into a new branch called `joe/myfeature`, then p
 
 ## Show me the workflow!
 
-I'm on a branch and make some change I need
+I'm on a big feature branch and make some change:
 
     cherrypicker> touch myfeature
     cherrypicker> git add myfeature & git commit -m "added a feature"
@@ -30,7 +30,7 @@ I'm on a branch and make some change I need
     create mode 100644 myfeature
     Job 1, 'git add myfeature &' has ended
 
-Then I do some more work
+Then I do some more work:
 
     cherrypicker> touch some_other_work
     cherrypicker> git add some_other_work & git commit -m "did some other work"
@@ -40,7 +40,7 @@ Then I do some more work
     create mode 100644 some_other_work
     Job 1, 'git add some_other_work &' has ended
 
-I realise that `myfeature` would make a git PR by itself, so I throw it on a branch
+I realise that `myfeature` would actually make a good PR by itself, so I throw it on a branch:
 
     cherrypicker> cherrypicker HEAD~1 joe/myfeature --new
 
@@ -53,7 +53,7 @@ I realise that `myfeature` would make a git PR by itself, so I throw it on a bra
     /usr/local/bin/git push --set-upstream origin joe/myfeature
     /usr/local/bin/git checkout master
 
-Let's see what that branch looks like
+Let's see what that branch looks like:
 
     cherrypicker> git checkout joe/myfeature
 
@@ -96,7 +96,7 @@ If you want to make changes to a PR without making its branch diverge, you can i
 
     cherrypicker> git rebase -i origin/master
 
-Change the command to `edit` or `e` for the commit you want to modify
+Change the command to `edit` or `e` for the commit you want to modify:
 
     Stopped at 205f4c4...  added a feature
     You can amend the commit now, with
@@ -117,7 +117,7 @@ Change the command to `edit` or `e` for the commit you want to modify
     cherrypicker> git rebase --continue
     Successfully rebased and updated refs/heads/master.
 
-Now reset the feature branch to contain this updated version of the change
+Now reset the feature branch to contain this updated version of the change:
 
     cherrypicker> cherrypicker HEAD~1 joe/myfeature
 
