@@ -99,4 +99,5 @@ def main(commit, branch, base, push, new, switch, mock):
             else:
                 git("push", "--force")
     finally:
-        git("checkout", current_branch)
+        if not switch:
+            git("checkout", current_branch)
