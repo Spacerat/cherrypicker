@@ -5,9 +5,15 @@ import click
 import re
 
 
-def real_git(*args, **kwargs):
-    mock_git(*args, **kwargs)
-    return sh.git(*args, **kwargs)
+def real_git(verbose):
+    def inner(*args, **kwargs):
+        mock_git(*args, **kwargs)
+        result = sh.git(*args, **kwargs)
+        if verbose:
+            click.echo(result)
+        return result
+
+    return inner
 
 
 def mock_git(*args, **kwargs):
@@ -34,12 +40,15 @@ def get_commit_hash(commit_spec):
 @click.command()
 @click.argument("commit", type=str)
 @click.argument("branch", type=str)
-@click.option("--base", type=str, default="origin/master", help="Base branch to branch from")
+@click.option(
+    "--base", type=str, default="origin/master", help="Base branch to branch from"
+)
 @click.option("--push/--no-push", default=True, help="Push the feature branch")
 @click.option("--new/--not-new", default=False, help="Make a new branch")
 @click.option("--switch/--no-switch", default=False, help="Switch to the other branch")
 @click.option("--mock/--real", default=False, help="Just print git commands")
-def main(commit, branch, base, push, new, switch, mock):
+@click.option("-v", "--verbose", default=False, help="Print command output")
+def main(commit, branch, base, push, new, switch, mock, verbose):
     """ COMMIT: a commit range to be cherry-picked into BRANCH, e.g. HEAD^1 or HEAD..HEAD~1, or a hash range
 
         BRANCH: this branch will be rebased off of the base branch, e.g. myname/my-great-feature
@@ -48,7 +57,7 @@ def main(commit, branch, base, push, new, switch, mock):
     if mock:
         git = mock_git
     else:
-        git = real_git
+        git = real_git(verbose)
 
     current_branch = get_current_branch()
 
@@ -78,7 +87,10 @@ def main(commit, branch, base, push, new, switch, mock):
             push_msg = " and push upstream"
         branch_action = "create" if new else "hard reset"
 
-        click.echo(f"Going to {branch_action} branch {branch} on {base} then cherry pick {commit}{push_msg}", err=True)
+        click.echo(
+            f"Going to {branch_action} branch {branch} on {base} then cherry pick {commit}{push_msg}",
+            err=True,
+        )
         click.echo(err=True)
 
         # Checkout or create the branch and reset to the the base branch
