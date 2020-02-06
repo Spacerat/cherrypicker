@@ -2,7 +2,7 @@
 
 Cherrypicker lets you easily create or update a branch to contain one or more commits which exist on your current branch. Install with:
 
-    pip3 install git+https://github.com/evenco/cherrypicker
+    pip3 install git+https://github.com/Spacerat/cherrypicker
 
 ## Why?
 
@@ -16,7 +16,6 @@ If you're working on a PR and decide that you would like to change some library 
 Cherrypick the last two commits into a new branch called `joe/myfeature`, then push the branch upstream and return to master:
 
     cherrypicker HEAD~1..HEAD joe/myfeature --new --push --mock
-
 
 ## Show me the workflow!
 
@@ -73,7 +72,6 @@ Let's see what that branch looks like:
         Initial commit
     cherrypicker>
 
-
 ## Cherrypicking a range of commits into a branch
 
 Cherrypicker will resolve branch specs such as `HEAD~1..HEAD` on your _current branch_, so that they can be cherrypicked into the target branch.
@@ -88,11 +86,9 @@ Cherrypicker will resolve branch specs such as `HEAD~1..HEAD` on your _current b
     /usr/local/bin/git push --force
     /usr/local/bin/git checkout master
 
-
 ## Updating a feature branch
 
 If you want to make changes to a PR without making its branch diverge, you can interactively rebase and then push the changes back up with this tool.
-
 
     cherrypicker> git rebase -i origin/master
 
@@ -131,4 +127,4 @@ Now reset the feature branch to contain this updated version of the change:
     /usr/local/bin/git checkout master
     cherrypicker>
 
-And you can see the result [here](https://github.com/evenco/cherrypicker/blob/joe/myfeature/myfeature)
+And you can see the result [here](https://github.com/Spacerat/cherrypicker/blob/joe/myfeature/myfeature)
